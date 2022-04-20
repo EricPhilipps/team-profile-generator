@@ -1,3 +1,5 @@
+const { beforeAll, expect } = require('@jest/globals');
+const inquirer = require('inquirer');
 const Employee = require('../lib/Employee');
 
 describe ("Employee", () => {
@@ -11,4 +13,16 @@ describe ("Employee", () => {
         })       
     })
 
+    describe("getName", () => {
+        let backup;
+        before(() => {
+            backup = inquirer.prompt;
+            inquirer.prompt = (answer) => Promise.resolve({firstName: 'John'})
+        })
+        it("should take name input and return it", () => {
+            const fName = Employee.getName();
+
+            expect(fName).toEqual('John');
+        })
+    })
 })
