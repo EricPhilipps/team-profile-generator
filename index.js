@@ -67,4 +67,35 @@ const addEngineer = () => {
         })
 }
 
-addEngineer();
+const addIntern = () => {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'firstName',
+                message: 'What is the name of this Employee?',
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: 'What is the ID of this Employee?',
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'What is the email of this Employee?',
+            },
+            {
+                type: 'input',
+                name: 'school',
+                message: 'What is the school of this Employee?',
+            },
+        ])
+        .then((internInfo) => {
+            const intern = new Intern(internInfo.firstName, internInfo.id, internInfo.email, internInfo.school);
+            employees.push(intern);
+            console.log(intern);
+        })
+}
+
+addIntern();
