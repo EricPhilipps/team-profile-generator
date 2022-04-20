@@ -30,8 +30,7 @@ const addManager = () => {
             },
         ])
         .then((managerInfo) => {
-            const {firstName, id, email, officeNumber} = managerInfo
-            const manager = new Manager(firstName, id, email, officeNumber);
+            const manager = new Manager(managerInfo.firstName, managerInfo.id, managerInfo.email, managerInfo.officeNumber);
             employees.push(manager);
             console.log(manager);
         })
