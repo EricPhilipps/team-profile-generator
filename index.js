@@ -98,4 +98,41 @@ const addIntern = () => {
         })
 }
 
-addIntern();
+const run = () => {
+    let addMore = true;
+    console.log('Welcome! Please continue and build your own team!\n\n');
+    
+    console.log('We will start with the manager of your team:\n\n')
+
+    addManager();
+
+    console.log('Now that we have done that, we can add an Engineer (e), an Intern (i), or stop here (q)\n');
+
+    while (addMore) {
+    inquirer
+        .prompt([
+            {
+                type: 'input', 
+                name: 'choice',
+                meggage: 'Please choose one of the options in parentheses above to continue: ',
+            },
+        ])
+        .then((choiceInfo) => {
+            const option = choiceInfo.choice;
+
+            if (option === 'q') {
+                addMore = false;
+            }
+            else if (option === 'e') {
+                addEngineer();
+            }
+            else if (option === 'i') {
+                addIntern();
+            }
+        })
+    }
+}
+
+run();
+
+console.log(employees);
