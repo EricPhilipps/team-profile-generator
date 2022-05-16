@@ -5,28 +5,28 @@ const Intern = require('./lib/Intern')
 
 const employees = [];
 
-const addManager = () => {
-    inquirer
+const addManager = async () => {
+    await inquirer
         .prompt([
             {
                 type: 'input',
                 name: 'firstName',
-                message: 'What is the name of this Employee?',
+                message: 'What is the name of this Manager?',
             },
             {
                 type: 'input',
                 name: 'id',
-                message: 'What is the ID of this Employee?',
+                message: 'What is the ID of this Manager?',
             },
             {
                 type: 'input',
                 name: 'email',
-                message: 'What is the email of this Employee?',
+                message: 'What is the email of this Manager?',
             },
             {
                 type: 'input',
                 name: 'officeNumber',
-                message: 'What is the office number of this Employee?',
+                message: 'What is the office number of this Manager?',
             },
         ])
         .then((managerInfo) => {
@@ -36,28 +36,28 @@ const addManager = () => {
         })
 }
 
-const addEngineer = () => {
-    inquirer
+const addEngineer = async () => {
+    await inquirer
         .prompt([
             {
                 type: 'input',
                 name: 'firstName',
-                message: 'What is the name of this Employee?',
+                message: 'What is the name of this Engineer?',
             },
             {
                 type: 'input',
                 name: 'id',
-                message: 'What is the ID of this Employee?',
+                message: 'What is the ID of this Engineer?',
             },
             {
                 type: 'input',
                 name: 'email',
-                message: 'What is the email of this Employee?',
+                message: 'What is the email of this Engineer?',
             },
             {
                 type: 'input',
                 name: 'github',
-                message: 'What is the GitHub of this Employee?',
+                message: 'What is the GitHub of this Engineer?',
             },
         ])
         .then((EngineerInfo) => {
@@ -67,28 +67,28 @@ const addEngineer = () => {
         })
 }
 
-const addIntern = () => {
-    inquirer
+const addIntern = async () => {
+    await inquirer
         .prompt([
             {
                 type: 'input',
                 name: 'firstName',
-                message: 'What is the name of this Employee?',
+                message: 'What is the name of this Intern?',
             },
             {
                 type: 'input',
                 name: 'id',
-                message: 'What is the ID of this Employee?',
+                message: 'What is the ID of this Intern?',
             },
             {
                 type: 'input',
                 name: 'email',
-                message: 'What is the email of this Employee?',
+                message: 'What is the email of this Intern?',
             },
             {
                 type: 'input',
                 name: 'school',
-                message: 'What is the school of this Employee?',
+                message: 'What is the school of this Intern?',
             },
         ])
         .then((internInfo) => {
@@ -98,38 +98,40 @@ const addIntern = () => {
         })
 }
 
-const run = () => {
+const run = async () => {
     let addMore = true;
+    let option = null;
     console.log('Welcome! Please continue and build your own team!\n\n');
     
     console.log('We will start with the manager of your team:\n\n')
 
-    addManager();
+    await addManager();
 
-    console.log('Now that we have done that, we can add an Engineer (e), an Intern (i), or stop here (q)\n');
+    console.log('\nNow that we have done that, we can add more Employees\n');
 
     while (addMore) {
-    inquirer
+    await inquirer
         .prompt([
             {
-                type: 'input', 
+                type: 'list', 
                 name: 'choice',
-                meggage: 'Please choose one of the options in parentheses above to continue: ',
+                message: 'Choose one of the following employees to create: ',
+                choices: ['Engineer', 'Intern', 'Done']
             },
         ])
         .then((choiceInfo) => {
-            const option = choiceInfo.choice;
-
-            if (option === 'q') {
-                addMore = false;
-            }
-            else if (option === 'e') {
-                addEngineer();
-            }
-            else if (option === 'i') {
-                addIntern();
-            }
+            option = choiceInfo.choice;
         })
+
+        if (option === 'Done') {
+            addMore = false;
+        }
+        else if (option === 'Engineer') {
+            await addEngineer();
+        }
+        else if (option === 'Intern') {
+            await addIntern();
+        }
     }
 }
 
